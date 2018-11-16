@@ -1,5 +1,5 @@
 The dataset we will be using is the **College Scorecard Data** collected by the U.S. Department of Education. 
-The data can be accessed at the following URL: [https://collegescorecard.ed.gov/data/](https://collegescorecard.ed.gov/data/). As defined in the [Data Documentation](https://collegescorecard.ed.gov/data/documentation/), 
+The data can be accessed at the following URL: [https://collegescorecard.ed.gov/data/](https://collegescorecard.ed.gov/data/). As defined in the [Data Documentation](https://collegescorecard.ed.gov/assets/FullDataDocumentation.pdf), 
 > “This project provides data to help students and families compare college costs and outcomes as they weigh the tradeoffs of different colleges, accounting for their own needs and educational goals.” 
 
 The target audience we will be focusing on is high school upperclassmen and their families who are preparing for and exploring college options.

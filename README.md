@@ -1,5 +1,12 @@
 # Info 201 Group Project
 
+### Final Set of Research Questions
+
+1. Analyze the cost of college by location (i.e. grouping by zip code). Filter further by in-state vs. out-of-state tuition.
+2. What colleges have the highest post-college average earnings depending on Public, Private Nonprofit, and Private For-Profit colleges?
+3. What colleges have the best repayment rate (for 1, 3, 5, and 7 years) based on family income?
+4. Which schools have the greatest cumulative median debt disaggregated by student subgroups?
+
 ### Proposal Feedback
 
 Great topic! Sounds like an interesting project.

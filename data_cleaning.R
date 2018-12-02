@@ -22,17 +22,33 @@ raw_data[raw_data == "NULL" | raw_data == "PrivacySuppressed"] <- NA
 
 earnings <- raw_data %>%
   select("ID" = UNITID,
+        "NAME" = INSTNM,
+        CITY,
+        "STATE" = STABBR,
+        ZIP,
+        "COLLEGE_TYPE" = CONTROL,
+        "MEAN_EARNINGS_10_YEARS" = MN_EARN_WNE_P10,
+        "MEAN_EARNINGS_9_YEARS" = MN_EARN_WNE_P9,
+        "MEAN_EARNINGS_8_YEARS" = MN_EARN_WNE_P8,
+        "MEAN_EARNINGS_7_YEARS" = MN_EARN_WNE_P7,
+        "MEAN_EARNINGS_6_YEARS" = MN_EARN_WNE_P6) %>%
+  mutate(ZIP = substr(ZIP, 1, 5)) %>%
+  select_if(~ !all(is.na(.)))
+
+write.csv(earnings, "data/uni_earnings_by_college_type.csv", row.names = FALSE)
+
+debt <- raw_data %>%
+  select("ID" = UNITID,
          "NAME" = INSTNM,
          CITY,
          "STATE" = STABBR,
          ZIP,
          "COLLEGE_TYPE" = CONTROL,
-         "MEAN_EARNINGS_10_YEARS" = MN_EARN_WNE_P10,
-         "MEAN_EARNINGS_9_YEARS" = MN_EARN_WNE_P9,
-         "MEAN_EARNINGS_8_YEARS" = MN_EARN_WNE_P8,
-         "MEAN_EARNINGS_7_YEARS" = MN_EARN_WNE_P7,
-         "MEAN_EARNINGS_6_YEARS" = MN_EARN_WNE_P6) %>%
+         "LOW_INCOME_MEDIAN_DEBT" = LO_INC_DEBT_MDN,
+         "MED_INCOME_MEDIAN_DEBT" = MD_INC_DEBT_MDN,
+         "HI_INCOME_MEDIAN_DEBT" = HI_INC_DEBT_MDN) %>%
   mutate(ZIP = substr(ZIP, 1, 5)) %>%
   select_if(~ !all(is.na(.)))
 
-write.csv(earnings, "data/uni_earnings_by_college_type.csv", row.names = FALSE)
+write.csv(debt, "data/uni_debt_by_income.csv", row.names = FALSE)
+

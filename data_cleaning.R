@@ -2,18 +2,37 @@
 
 library(readr)
 library(dplyr)
-raw_data <- read_csv("script_costs.csv")
+library(stringr)
+raw_data <- read_csv("data/MERGED2012_13_PP.csv")
+raw_data[raw_data == "NULL" | raw_data == "PrivacySuppressed"] <- NA
 
 # This will get the costs associated with the school while keeping the school info
-costs <- raw_data %>%
+# costs <- raw_data %>%
+#   select("ID" = UNITID,
+#          "NAME" = INSTNM,
+#          CITY,
+#          "STATE" = STABBR,
+#          ZIP,
+#          "INSTATE_TUITION" = TUITIONFEE_IN,
+#          "OUTOFSTATE_TUITION" = TUITIONFEE_OUT) %>%
+#   filter(INSTATE_TUITION != "NULL" & OUTOFSTATE_TUITION != "NULL") %>%
+#   mutate(ZIP = substr(ZIP, 1, 5))
+# 
+# write.csv(costs, "uni_costs_by_location.csv", row.names = FALSE)
+
+earnings <- raw_data %>%
   select("ID" = UNITID,
          "NAME" = INSTNM,
-         CITY, 
+         CITY,
          "STATE" = STABBR,
          ZIP,
-         "INSTATE_TUITION" = TUITIONFEE_IN,
-         "OUTOFSTATE_TUITION" = TUITIONFEE_OUT) %>%
-  filter(INSTATE_TUITION != "NULL" & OUTOFSTATE_TUITION != "NULL") %>%
-  mutate(ZIP = substr(ZIP, 1, 5))
+         "COLLEGE_TYPE" = CONTROL,
+         "MEAN_EARNINGS_10_YEARS" = MN_EARN_WNE_P10,
+         "MEAN_EARNINGS_9_YEARS" = MN_EARN_WNE_P9,
+         "MEAN_EARNINGS_8_YEARS" = MN_EARN_WNE_P8,
+         "MEAN_EARNINGS_7_YEARS" = MN_EARN_WNE_P7,
+         "MEAN_EARNINGS_6_YEARS" = MN_EARN_WNE_P6) %>%
+  mutate(ZIP = substr(ZIP, 1, 5)) %>%
+  select_if(~ !all(is.na(.)))
 
-write.csv(costs, "uni_costs_by_location.csv", row.names = FALSE)
+write.csv(earnings, "data/uni_earnings_by_college_type.csv", row.names = FALSE)

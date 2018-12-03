@@ -3,23 +3,23 @@
 ## College Data Web App UI
 
 library(shiny)
+library(ggplot2)
+library(mapdata)
+library(dplyr)
+library(zipcode)
 
 # Define UI for application that draws a histogram
-shinyUI(fluidPage(
+ui <- fluidPage(
   
   titlePanel("College Data"),
   
   sidebarLayout(
     sidebarPanel(
-       sliderInput("bins",
-                   "Number of bins:",
-                   min = 1,
-                   max = 50,
-                   value = 30)
+      textInput("state", "Type in a Valid State Abbreviation")
     ),
     
     mainPanel(
-       plotOutput("distPlot")
+       plotOutput("plot")
     )
   )
-))
+)

@@ -52,3 +52,38 @@ debt <- raw_data %>%
 
 write.csv(debt, "data/uni_debt_by_income.csv", row.names = FALSE)
 
+
+## vvv Repayment section vvvv
+select("ID" = UNITID,
+       "NAME" = INSTNM,
+       CITY, 
+       "STATE" = STABBR,
+       ZIP, 
+       COMPL_RPY_1YR_RT,
+       NONCOM_RPY_1YR_RT,
+       LO_INC_RPY_1YR_RT,
+       MD_INC_RPY_1YR_RT,
+       HI_INC_RPY_1YR_RT,
+       
+       COMPL_RPY_3YR_RT,
+       NONCOM_RPY_3YR_RT,
+       LO_INC_RPY_3YR_RT,
+       MD_INC_RPY_3YR_RT,
+       HI_INC_RPY_3YR_RT,
+       
+       COMPL_RPY_5YR_RT,
+       NONCOM_RPY_5YR_RT,
+       LO_INC_RPY_5YR_RT,
+       MD_INC_RPY_5YR_RT,
+       HI_INC_RPY_5YR_RT,
+       
+       COMPL_RPY_7YR_RT,
+       NONCOM_RPY_7YR_RT,
+       LO_INC_RPY_7YR_RT,
+       MD_INC_RPY_7YR_RT,
+       HI_INC_RPY_7YR_RT ) %>%
+  mutate(ZIP = substr(ZIP, 1, 5))
+
+repayment_df[repayment_df == "NULL" | repayment_df == "PrivacySuppressed"] = NA
+
+repayment_df <- repayment_df %>% select_if(~ any(!is.na(.)))

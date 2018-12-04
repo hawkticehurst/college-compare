@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,600i,700,700i,800,800i|Yantramanav:400,500');
 
+/***** Mobile Friendly Adjustments *****/
 @media (min-width: 576px) { ... }
 
 // Medium devices (tablets, 768px and up)
@@ -16,6 +17,7 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+
 /***** Navigation Bar *****/
 .navbar {
   color: black;
@@ -28,7 +30,9 @@ body {
   font-weight: 700;
 }
 
-/* Figure out active navbar settings */
+.navbar > .active {
+  background-color: red;
+}
 
 
 /***** Header Content *****/
@@ -117,17 +121,17 @@ body {
 
 #color-bar2::after {
   width: 295px;
-  background-color: #f8d86e;
+  background-color: #9cca99;
 }
 
 #color-bar3::after {
   width: 310px;
-  background-color: #f8d86e;
+  background-color: #67a1db;
 }
 
 #color-bar4::after {
   width: 180px;
-  background-color: #f8d86e;
+  background-color: #EC7063;
 }
 
 
@@ -148,12 +152,27 @@ body {
 
 /***** Visualization Style *****/
 .viz-container {
-  background-color: #fed574;
   border-radius: 5px;
   padding: 2em 1em 2em 1em;
   margin-top: 2em;
   margin-bottom: 2em;
   box-shadow: 0px 2px 12px #B6B9BA;
+}
+
+#viz-container1 {
+  background-color: #FDF5DB;
+}
+
+#viz-container2 {
+  background-color: #E6F2E6;
+}
+
+#viz-container3 {
+  background-color: #D9E8F6;
+}
+
+#viz-container4 {
+  background-color: #FADBD8;
 }
 
 

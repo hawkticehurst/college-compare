@@ -43,7 +43,8 @@ shinyUI(fluidPage(
                       ),
                       
                       ## Research Question 1 Visualization
-                      tags$div(class = "viz-container",
+                      tags$div(id = "viz-container1",
+                               class = "viz-container",
                                sidebarLayout(
                                  sidebarPanel(
                                    selectInput("stateStatus",
@@ -68,7 +69,8 @@ shinyUI(fluidPage(
                       ),
                       
                       ## Research Question 2 Visualization
-                      tags$div(class = "viz-container",
+                      tags$div(id = "viz-container2",
+                               class = "viz-container",
                                sidebarLayout(
                                  sidebarPanel(
                                    selectInput("typeOfCollege",
@@ -91,7 +93,8 @@ shinyUI(fluidPage(
                       ),
                       
                       ## Research Question 3 Visualization
-                      tags$div(class = "viz-container",
+                      tags$div(id = "viz-container3",
+                               class = "viz-container",
                                sidebarLayout(
                                  sidebarPanel(
                                    selectInput("repaymentYears",
@@ -114,7 +117,8 @@ shinyUI(fluidPage(
                       ),
                       
                       ## Research Question 4 Visualization
-                      tags$div(class = "viz-container",
+                      tags$div(id = "viz-container4",
+                               class = "viz-container",
                                sidebarLayout(
                                  sidebarPanel(
                                    selectInput("studentSubgroup",

@@ -6,7 +6,7 @@ library(shiny)
 
 shinyUI(fluidPage(
   tags$head(
-    tags$title("College Data Webapp"),
+    tags$title("College Compare"),
     tags$link(rel="stylesheet", type = "text/css", href="index.css"),
     tags$meta(charset="utf-8"),
     tags$meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
@@ -16,27 +16,38 @@ shinyUI(fluidPage(
              collapsible = TRUE,
              header = TRUE,
              position = c("fixed-top"),
-             title = "College Data Webapp",
+             title = "College Compare",
              
              ## Project Page Content
-             tabPanel("Project", 
-                      tags$div(class = "jumbotron",
-                               h1(class = "focus-in-contract",
-                               "College Data"),
-                               p("An information resource for incoming college students.")
+             tabPanel("Home",
+                      tags$header(
+                        tags$div(id = "header-content",
+                                 h1(class = "focus-in-contract",
+                                    "College Compare"),
+                                 p(class = "text-focus-in",
+                                   "An information resource for prospective college students.")
+                        ),
+                        tags$div(class = "wave wave1"),
+                        tags$div(class = "wave wave2"),
+                        tags$div(class = "wave wave3")
                       ),
+                      
+                      h3(id = "color-bar1", "Cost of College"),
+                      p(class = "summary-text",
+                        "It's no secret that college is expensive. It's more important than 
+                        ever to perform due diligence when exploring your collegiate options. 
+                        What are the costs of college by zip code? How about if you're an 
+                        in-state vs. out-of-state student?"),
                       
                       ## Research Question 1 Visualization
                       tags$div(class = "viz-card",
-                               h3("Cost of College By Location"),
-                               p("What are the costs of college by zip code? How about if you're an in-state vs. out-of-state student?"),
                                sidebarLayout(
                                  sidebarPanel(
-                                   sliderInput("bins",
-                                               "Number of bins:",
-                                               min = 1,
-                                               max = 50,
-                                               value = 30)
+                                   selectInput("stateStatus",
+                                               "State Status",
+                                               c("In State", "Out of State")),
+                                   textInput("zipCodeInput",
+                                             "Zip Code")
                                  ),
                                  
                                  mainPanel(
@@ -45,17 +56,18 @@ shinyUI(fluidPage(
                                )         
                       ),
                       
+                      h3(id = "color-bar1", "Post-College Earnings"),
+                      p(class = "summary-text",
+                        "What colleges have the highest post-college average earnings depending
+                        on Public, Private Nonprofit, and Private For-Profit colleges?"),
+                      
                       ## Research Question 2 Visualization
                       tags$div(class = "viz-card",
-                               h3("Highest Post-College Earnings"),
-                               p("What colleges have the highest post-college average earnings depending on Public, Private Nonprofit, and Private For-Profit colleges?"),
                                sidebarLayout(
                                  sidebarPanel(
-                                   sliderInput("bins",
-                                               "Number of bins:",
-                                               min = 1,
-                                               max = 50,
-                                               value = 30)
+                                   selectInput("typeOfCollege",
+                                               "Type of College",
+                                               c("Public", "Private Nonprofit", "Private For-Profit"))
                                  ),
                                  
                                  mainPanel(
@@ -64,17 +76,18 @@ shinyUI(fluidPage(
                                )        
                       ),
                       
+                      h3(id = "color-bar1", "Best Repayment Rates"),
+                      p(class = "summary-text", 
+                        "What colleges have the best repayment rate (for 1, 3, 5, and 7 years) 
+                        based on family income?"),
+                      
                       ## Research Question 3 Visualization
                       tags$div(class = "viz-card",
-                               h3("Best Repayment Rates"),
-                               p("What colleges have the best repayment rate (for 1, 3, 5, and 7 years) based on family income?"),
                                sidebarLayout(
                                  sidebarPanel(
-                                   sliderInput("bins",
-                                               "Number of bins:",
-                                               min = 1,
-                                               max = 50,
-                                               value = 30)
+                                   selectInput("repaymentYears",
+                                               "Repyament Years",
+                                               c("1 year", "3 years", "5 years", "7 years"))
                                  ),
                                  
                                  mainPanel(
@@ -83,17 +96,18 @@ shinyUI(fluidPage(
                                )      
                       ),
                       
+                      h3(id = "color-bar1", "Largest Debt"),
+                      p(class = "summary-text", 
+                        "Which schools have the greatest cumulative median debt disaggregated 
+                        by student subgroups?"),
+                      
                       ## Research Question 4 Visualization
                       tags$div(class = "viz-card",
-                               h3("Largest Debt"),
-                               p("Which schools have the greatest cumulative median debt disaggregated by student subgroups?"),
                                sidebarLayout(
                                  sidebarPanel(
-                                   sliderInput("bins",
-                                               "Number of bins:",
-                                               min = 1,
-                                               max = 50,
-                                               value = 30)
+                                   selectInput("studentSubgroup",
+                                               "Student Subgroup",
+                                               c("White", "Black", "Asian", "Hispanic", "Other?"))
                                  ),
                                  
                                  mainPanel(
@@ -101,11 +115,6 @@ shinyUI(fluidPage(
                                  )
                                )       
                       )
-             ),
-             
-             ## About Page Content
-             tabPanel("About", 
-                      "contents2"
              ),
              
              ## Team Page Content

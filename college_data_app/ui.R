@@ -5,21 +5,25 @@
 library(shiny)
 
 # Define UI for application that draws a histogram
-shinyUI(fluidPage(
+ui <- fluidPage(
   
   titlePanel("College Data"),
   
   sidebarLayout(
     sidebarPanel(
-       sliderInput("bins",
-                   "Number of bins:",
-                   min = 1,
-                   max = 50,
-                   value = 30)
+      textInput("state", "Search by State Abbreviation"),
+      textInput("zip", "Search by Zipcode"),
+      sliderInput("in_state", "Select In-State Tuition Range",
+                  min = 0, max = 46000, value = c(0, 50000),
+                  step = 500),
+      sliderInput("out_of_state", "Select Out-Of-State Tuition Range",
+                  min = 0, max = 46000, value = c(0, 50000),
+                  step = 500)
     ),
     
     mainPanel(
-       plotOutput("distPlot")
+       plotOutput("plot"),
+       textOutput("message")
     )
   )
-))
+)

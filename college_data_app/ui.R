@@ -23,7 +23,8 @@ shinyUI(fluidPage(
              tabPanel("Home",
                       tags$header(
                         tags$div(id = "header-content",
-                                 h1(class = "focus-in-contract",
+                                 h1(id = "home-title",
+                                    class = "focus-in-contract",
                                     "College Compare"),
                                  p(class = "text-focus-in",
                                    "An information resource for prospective college students.")
@@ -206,9 +207,29 @@ shinyUI(fluidPage(
              ## Team Page Content
              tabPanel("Team", 
                       tags$header(
-                        tags$div(id = "header-content",
-                                 h1(class = "focus-in-contract",
+                        tags$div(id = "team-header-content",
+                                 h1(id = "team-title",
+                                    class = "focus-in-contract",
                                     "The Team")
+                        )
+                      ),
+                      tags$div(
+                        class = "team-card-container",
+                        tags$div(
+                          class = "team-card",
+                          tags$h4("Hawk Ticehurst")
+                        ),
+                        tags$div(
+                          class = "team-card",
+                          tags$h4("Alex Davis")
+                        ),
+                        tags$div(
+                          class = "team-card",
+                          tags$h4("Zach Wu")
+                        ),
+                        tags$div(
+                          class = "team-card",
+                          tags$h4("Ishan Mitra")
                         )
                       )
              )

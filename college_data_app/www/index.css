@@ -42,7 +42,7 @@ body {
   margin-bottom: 38em;
 }
 
-#header-content > h1 {
+#header-content > h1, #team-header-content > h1 {
   font-family: 'Yantramanav', sans-serif;
   font-size: 45pt;
   font-weight: 800;
@@ -55,6 +55,11 @@ body {
   position: relative;
 }
 
+#team-header-content {
+  padding-left: 4em;
+  margin-top: 15em;
+  margin-bottom: 15em;
+}
 
 /***** Wave Animation *****/
 /* Adapted from work by Rico Sta. Cruz */
@@ -92,14 +97,14 @@ body {
 
 
 /***** Colored Bars *****/
-#header-content > h1, #color-bar1, #color-bar2, #color-bar3, #color-bar4 {
+#home-title, #team-title, #color-bar1, #color-bar2, #color-bar3, #color-bar4 {
   color: #3d435e;
   position: relative;
   font-weight: 700;
   z-index: 1;
 }
 
-#header-content > h1::after, #color-bar1::after, #color-bar2::after, 
+#home-title::after, #team-title::after, #color-bar1::after, #color-bar2::after, 
 #color-bar3::after, #color-bar4::after {
   content: "";
   position: absolute;
@@ -109,9 +114,14 @@ body {
   z-index: -1;
 }
 
-#header-content > h1::after {
+#home-title::after {
   width: 440px;
   background-color: #f8d86e;
+}
+
+#team-title::after {
+  width: 280px;
+  background-color: #f29285;
 }
 
 #color-bar1::after {
@@ -173,6 +183,39 @@ body {
 
 #viz-container4 {
   background-color: #FADBD8;
+}
+
+
+/***** Team Cards *****/
+.team-card-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.team-card {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 15px #D7DBDD;
+  width: 50%;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  padding: 1em;
+}
+
+.team-card > h4 {
+  font-family: 'Yantramanav', sans-serif;
+  font-size: 18pt;
+  font-weight: 600;
+  padding-left: 3em;
+}
+
+.team-card > img {
+  height: auto;
+  width: auto;
+  max-width: 400px;
+  max-height: 400px;
+  border-radius: 0px 5px 5px 0px;
 }
 
 

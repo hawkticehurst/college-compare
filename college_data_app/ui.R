@@ -217,18 +217,26 @@ shinyUI(fluidPage(
                         class = "team-card-container",
                         tags$div(
                           class = "team-card",
-                          tags$h4("Hawk Ticehurst")
+                          tags$img(src = "hawk.jpg", alt = "Headshot of Hawk Ticehurst"),
+                          tags$div(
+                            class = "team-card-info",
+                            tags$h4("Hawk Ticehurst"),
+                            p("Major: Pre-Informatics")
+                          )
                         ),
                         tags$div(
                           class = "team-card",
+                          tags$img(src = "", alt = "Headshot of Alex Davis"),
                           tags$h4("Alex Davis")
                         ),
                         tags$div(
                           class = "team-card",
+                          tags$img(src = "", alt = "Headshot of Zach Wu"),
                           tags$h4("Zach Wu")
                         ),
                         tags$div(
                           class = "team-card",
+                          tags$img(src = "", alt = "Headshot of Ishan Mitra"),
                           tags$h4("Ishan Mitra")
                         )
                       )

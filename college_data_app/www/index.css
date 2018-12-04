@@ -13,7 +13,7 @@
 @media (min-width: 1200px) { ... }
 
 body {
-  background-color: #FDFDFD;
+  background-color: #F7F7F7;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -194,28 +194,39 @@ body {
 }
 
 .team-card {
+  display: flex;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 0 2px 15px #D7DBDD;
-  width: 50%;
+  box-shadow: 0 0 30px -30px #D7DBDD;
+  width: 35em;
   margin-top: 2em;
   margin-bottom: 2em;
-  padding: 1em;
+  transform: scale(1.00);
+  transition: transform 0.35s;
 }
 
-.team-card > h4 {
+.team-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 50px #D7DBDD;
+}
+
+.team-card-info > h4 {
   font-family: 'Yantramanav', sans-serif;
   font-size: 18pt;
   font-weight: 600;
-  padding-left: 3em;
+  padding-top: 0.2em;
+}
+
+.team-card-info {
+  padding-left: 1.5em;
 }
 
 .team-card > img {
   height: auto;
   width: auto;
-  max-width: 400px;
-  max-height: 400px;
-  border-radius: 0px 5px 5px 0px;
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 5px 0px 0px 5px;
 }
 
 

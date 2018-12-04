@@ -3,10 +3,6 @@
 ## College Data Web App UI
 
 library(shiny)
-library(ggplot2)
-library(mapdata)
-library(dplyr)
-library(zipcode)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -15,11 +11,19 @@ ui <- fluidPage(
   
   sidebarLayout(
     sidebarPanel(
-      textInput("state", "Type in a Valid State Abbreviation")
+      textInput("state", "Search by State Abbreviation"),
+      textInput("zip", "Search by Zipcode"),
+      sliderInput("in_state", "Select In-State Tuition Range",
+                  min = 0, max = 46000, value = c(0, 50000),
+                  step = 500),
+      sliderInput("out_of_state", "Select Out-Of-State Tuition Range",
+                  min = 0, max = 46000, value = c(0, 50000),
+                  step = 500)
     ),
     
     mainPanel(
-       plotOutput("plot")
+       plotOutput("plot"),
+       textOutput("message")
     )
   )
 )

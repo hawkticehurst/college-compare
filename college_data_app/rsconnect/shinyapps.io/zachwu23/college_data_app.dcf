@@ -1,0 +1,12 @@
+name: college_data_app
+title: college_data_app
+username:
+account: zachwu23
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 603420
+bundleId: 1740267
+url: https://zachwu23.shinyapps.io/college_data_app/
+when: 1543954585.68775
+asMultiple: FALSE
+asStatic: FALSE

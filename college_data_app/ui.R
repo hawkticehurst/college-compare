@@ -135,7 +135,12 @@ shinyUI(fluidPage(
              
              ## Team Page Content
              tabPanel("Team", 
-                      "contents3"
+                      tags$header(
+                        tags$div(id = "header-content",
+                                 h1(class = "focus-in-contract",
+                                    "The Team")
+                        )
+                      )
              )
   )
 ))

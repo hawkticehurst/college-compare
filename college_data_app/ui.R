@@ -8,6 +8,7 @@ shinyUI(fluidPage(
   tags$head(
     tags$title("College Compare"),
     tags$link(rel="stylesheet", type = "text/css", href="index.css"),
+    tags$link(rel="stylesheet", href="https://unpkg.com/aos@2.3.1/dist/aos.css"),
     tags$meta(charset="utf-8"),
     tags$meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
   ),
@@ -18,7 +19,7 @@ shinyUI(fluidPage(
              position = c("fixed-top"),
              title = "College Compare",
              
-             ## Project Page Content
+             ## Home Page Content
              tabPanel("Home",
                       tags$header(
                         tags$div(id = "header-content",
@@ -34,19 +35,39 @@ shinyUI(fluidPage(
                       
                       ## Summary of Research Question 1
                       tags$div(class = "summary-content-container",
-                               h3(id = "color-bar1", class = "summary-title", "Cost of College"),
+                               h3(id = "color-bar1", 
+                                  class = "summary-title",
+                                  `data-aos` = "fade-right",
+                                  `data-aos-duration` = "800",
+                                  "Cost of College"),
                                p(class = "summary-text",
+                                 `data-aos` = "fade-right",
+                                 `data-aos-duration` = "900",
                                  "It's no secret that college is expensive. It's more important 
                                  than ever to perform due diligence when exploring your 
-                                 collegiate options. What are the costs of college by zip code? 
-                                 How about if you're an in-state vs. out-of-state student?")     
+                                 collegiate options. Using ",
+                                 tags$a(href = "https://collegescorecard.ed.gov/data/", "College Scorecard Data"),
+                                 " collected by the U.S. Department of Education we developed a 
+                                 resource for helping prospective students in some of this 
+                                 process."),
+                               p(class = "summary-text",
+                                 `data-aos` = "fade-right",
+                                 `data-aos-duration` = "900",
+                                 "The first tool, below, tackles one of the biggest questions: 
+                                 What are the costs of college? Answers to this question can be
+                                 filtered by zip code and whether you're an in-state vs. 
+                                 out-of-state student.")
                       ),
                       
                       ## Research Question 1 Visualization
                       tags$div(id = "viz-container1",
                                class = "viz-container",
+                               `data-aos` = "fade-left",
+                               `data-aos-duration` = "800",
                                sidebarLayout(
                                  sidebarPanel(
+                                   `data-aos` = "fade-left",
+                                   `data-aos-duration` = "1000",
                                    selectInput("stateStatus",
                                                "State Status",
                                                c("In State", "Out of State")),
@@ -55,78 +76,127 @@ shinyUI(fluidPage(
                                  ),
                                  
                                  mainPanel(
+                                   `data-aos` = "fade-left",
+                                   `data-aos-duration` = "1500",
                                    plotOutput("distPlot1")
                                  )
                                )         
                       ),
                       
                       ## Summary of Research Question 2
-                      tags$div(class = "summary-content-container", 
-                               h3(id = "color-bar2", class = "summary-title", "Post-College Earnings"),
+                      tags$div(class = "summary-content-container",
+                               h3(id = "color-bar2", 
+                                  class = "summary-title", 
+                                  `data-aos` = "fade-right",
+                                  `data-aos-duration` = "800",
+                                  "Post-College Earnings"),
                                p(class = "summary-text",
-                                 "What colleges have the highest post-college average earnings depending
-                                 on Public, Private Nonprofit, and Private For-Profit colleges?")     
+                                 `data-aos` = "fade-right",
+                                 `data-aos-duration` = "1000",
+                                 "Another incredibly important consideration is the return of 
+                                 investment from your college experience. The second tool asks 
+                                 which colleges have the highest post-college average earnings 
+                                 based on Public, Private Nonprofit, and Private For-Profit 
+                                 colleges?")     
                       ),
                       
                       ## Research Question 2 Visualization
                       tags$div(id = "viz-container2",
                                class = "viz-container",
+                               `data-aos` = "fade-left",
+                               `data-aos-duration` = "800",
                                sidebarLayout(
                                  sidebarPanel(
+                                   `data-aos` = "fade-left",
+                                   `data-aos-duration` = "1000",
                                    selectInput("typeOfCollege",
                                                "Type of College",
                                                c("Public", "Private Nonprofit", "Private For-Profit"))
                                  ),
                                  
                                  mainPanel(
+                                   `data-aos` = "fade-left",
+                                   `data-aos-duration` = "1500",
                                    plotOutput("distPlot2")
                                  )
                                )        
                       ),
                       
                       ## Summary of Research Question 3
-                      tags$div(class = "summary-content-container", 
-                               h3(id = "color-bar3", class = "summary-title", "Best Repayment Rates"),
-                               p(class = "summary-text", 
-                                 "What colleges have the best repayment rate (for 1, 3, 5, and 7 years) 
-                                 based on family income?")
+                      tags$div(class = "summary-content-container",
+                               h3(id = "color-bar3", 
+                                  class = "summary-title", 
+                                  `data-aos` = "fade-right",
+                                  `data-aos-duration` = "800",
+                                  "Best Repayment Rates"),
+                               p(class = "summary-text",
+                                 `data-aos` = "fade-right",
+                                 `data-aos-duration` = "1000",
+                                 "With college being so expensive a third consideration is how 
+                                 long it will take to repay debt accumulated during your time at
+                                 college. The third tool ask which colleges have the best 
+                                 repayment rate (for 1, 3, 5, and 7 years) based on family 
+                                 income?")
                       ),
                       
                       ## Research Question 3 Visualization
                       tags$div(id = "viz-container3",
                                class = "viz-container",
+                               `data-aos` = "fade-left",
+                               `data-aos-duration` = "800",
                                sidebarLayout(
                                  sidebarPanel(
+                                   `data-aos` = "fade-left",
+                                   `data-aos-duration` = "1000",
                                    selectInput("repaymentYears",
-                                               "Repyament Years",
-                                               c("1 year", "3 years", "5 years", "7 years"))
+                                               "Repayment Years",
+                                               c("1 year", "3 years", "5 years", "7 years")),
+                                   selectInput("familyIncome",
+                                               "Family Income",
+                                               c("$0k - $25k", "$25k - $50k", "$50k - $75k", "$75k - $110k", "$110k +"))
                                  ),
                                  
                                  mainPanel(
+                                   `data-aos` = "fade-left",
+                                   `data-aos-duration` = "1500",
                                    plotOutput("distPlot3")
                                  )
                                )      
                       ),
                       
                       ## Summary of Research Question 4
-                      tags$div(class = "summary-content-container", 
-                               h3(id = "color-bar4", class = "summary-title", "Largest Debt"),
+                      tags$div(class = "summary-content-container",
+                               h3(id = "color-bar4", 
+                                  class = "summary-title",
+                                  `data-aos` = "fade-right",
+                                  `data-aos-duration` = "800",
+                                  "Largest Debt"),
                                p(class = "summary-text", 
-                                 "Which schools have the greatest cumulative median debt disaggregated 
-                                 by student subgroups?")
+                                 `data-aos` = "fade-right",
+                                 `data-aos-duration` = "1000",
+                                 "Finally, examining what level of debt can be expected at certain
+                                 colleges can be a helpful contributing factor in your college 
+                                 decision. The fourth tool ask which schools have the greatest 
+                                 cumulative median debt disaggregated by student subgroups?")
                       ),
                       
                       ## Research Question 4 Visualization
                       tags$div(id = "viz-container4",
                                class = "viz-container",
+                               `data-aos` = "fade-left",
+                               `data-aos-duration` = "800",
                                sidebarLayout(
                                  sidebarPanel(
+                                   `data-aos` = "fade-left",
+                                   `data-aos-duration` = "1000",
                                    selectInput("studentSubgroup",
                                                "Student Subgroup",
                                                c("White", "Black", "Asian", "Hispanic", "Other?"))
                                  ),
                                  
                                  mainPanel(
+                                   `data-aos` = "fade-left",
+                                   `data-aos-duration` = "1500",
                                    plotOutput("distPlot4")
                                  )
                                )       
@@ -142,5 +212,8 @@ shinyUI(fluidPage(
                         )
                       )
              )
-  )
+  ),
+  
+  tags$script(src = "https://unpkg.com/aos@next/dist/aos.js"),
+  tags$script(HTML("AOS.init();"))
 ))

@@ -125,6 +125,7 @@ server <- function(input, output) {
   })
 
   ############### Repayment Rate By Family Income ###############
+  
   output$plot3 <- renderPlot({
     get_university <- debt_data %>%
       filter(NAME == input$collegeInput) %>%

@@ -4,6 +4,7 @@
 
 library(shiny)
 library(plotly)
+costs_data <- read.csv("data/uni_costs_by_location.csv")
 
 shinyUI(fluidPage(
   tags$head(
@@ -94,7 +95,9 @@ shinyUI(fluidPage(
                                  sidebarPanel(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1000",
-                                   textInput("state", "Search by State Abbreviation"),
+                                   selectInput("state",
+                                               "Search by State", costs_data$STATE),
+                                   
                                    
                                    sliderInput("in_state", "Select In-State Tuition Range",
                                                min = 0, max = 46000, value = c(0, 50000),

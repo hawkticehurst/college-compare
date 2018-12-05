@@ -138,16 +138,13 @@ server <- function(input, output) {
 
       ggplot(df,aes(x=x, y=y)) +
       geom_bar(stat="identity") +
-      geom_text(aes(label=x), vjust=-0.3, size=3.5)+
-      geom_bar(stat="identity", color="steelblue", fill="steelblue") +
-      ggtitle(input$collegeInput)+
-      theme_minimal() +
-      
-      ## FOR ALEX: NEW CHANGES ADDED
-      geom_text(aes(label=round(y,digits = 2), vjust=-0.3, size=3.5)) +
+        geom_text(aes(label=round(y,digits = 2), vjust=-0.3, size=3.5)) +
         geom_bar(stat="identity", color="steelblue", fill="steelblue") +
         xlab("Repayment by Income (0 - 30K, 30 - 75k, 75k+)") +
-        ylab("Repayment Rate (%)")
+        ylab("Repayment Rate (%)")+
+      geom_bar(stat="identity", color="steelblue", fill="steelblue") +
+      ggtitle(input$collegeInput)+
+      theme_minimal()
   })
   
   

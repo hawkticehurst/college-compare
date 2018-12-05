@@ -84,6 +84,33 @@ shinyUI(fluidPage(
                                )         
                       ),
                       
+                      tags$div(id = "viz-container1",
+                               class = "viz-container",
+                               `data-aos` = "fade-left",
+                               `data-aos-duration` = "800",
+                               sidebarLayout(
+                                 sidebarPanel(
+                                   `data-aos` = "fade-left",
+                                   `data-aos-duration` = "1000",
+                                   textInput("state", "Search by State Abbreviation"),
+                                   textInput("zip", "Search by Zipcode"),
+                                   sliderInput("in_state", "Select In-State Tuition Range",
+                                               min = 0, max = 46000, value = c(0, 50000),
+                                               step = 500),
+                                   sliderInput("out_of_state", "Select Out-Of-State Tuition Range",
+                                               min = 0, max = 46000, value = c(0, 50000),
+                                               step = 500)
+                                 ),
+                                 
+                                 mainPanel(
+                                   `data-aos` = "fade-left",
+                                   `data-aos-duration` = "1500",
+                                   plotOutput("plot"),
+                                   textOutput("message")
+                                 )
+                               ) 
+                      ),
+                      
                       ## Summary of Research Question 2
                       tags$div(class = "summary-content-container",
                                h3(id = "color-bar2", 

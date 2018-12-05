@@ -11,13 +11,23 @@ if(!require(zipcode)) {
 }
 library(zipcode)
 
-## Read in and reformat data
-costs_data <- read.csv("uni_costs_by_location.csv")
+## Read in cost by location data
+costs_data <- read.csv("data/uni_costs_by_location.csv")
 costs_data$ZIP = as.character(costs_data$ZIP)
 
+## Read in earnings by college type data
+earnings_data <- read.csv("data/uni_earnings_by_college_type.csv")
+
+## Read in repayment rate by family income data
+# TODO: repayment_data <- read.csv("data/...")
+
+## Read in debt by student subgroup data
+# TODO: debt_data <- read.csv("data/...")
+
 server <- function(input, output) {
+  ############### Cost By Location ###############
   
-  ## Get Data
+  ## Get cost by location data
   get_data <- reactive({
     if (is.element(input$state, costs_data$STATE)) {
       costs_data <- filter(costs_data, STATE == input$state)
@@ -40,7 +50,7 @@ server <- function(input, output) {
     return(costs_data)
   })
   
-  ## Render Plot
+  ## Render cost by location plot
   output$plot <- renderPlot({
     usa_map <- map_data("state")
     costs_data <- get_data()
@@ -75,7 +85,7 @@ server <- function(input, output) {
     }
   })
   
-  # Message
+  # Calculate cost by location summary message
   message <- reactive({
     costs_data <- get_data()
     if (nrow(costs_data) > 0) {
@@ -108,9 +118,18 @@ server <- function(input, output) {
     }
   })
   
-  ## Render Text
+  ## Render cost by location summary message
   output$message <- renderText({
     output_message <- message()
     paste0(message())
   })
+  
+  ############### Earnings By College Type ###############
+  
+  
+  ############### Repayment Rate By Family Income ###############
+  
+  
+  ############### Debt By Student Subgroup ###############
+  
 }

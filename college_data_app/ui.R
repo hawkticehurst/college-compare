@@ -205,7 +205,7 @@ shinyUI(fluidPage(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1000",
                                    radioButtons("studentSubgroup",
-                                                "Student Subgroup",
+                                                "Student Income Group",
                                                 c("Low Income ($0-$30,000)"="LOW_INCOME_MEDIAN_DEBT", "Middle Income($30,001-$75,000)"="MED_INCOME_MEDIAN_DEBT",
                                                   "High Income($75,001+)"="HI_INCOME_MEDIAN_DEBT")),
                                    radioButtons("debtRange",

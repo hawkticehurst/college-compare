@@ -6,14 +6,13 @@ library(shiny)
 library(ggplot2)
 library(mapdata)
 library(dplyr)
-if(!require(zipcode)) {
-  install.packages(zipcode)
-}
 library(zipcode)
+library(plotly)
+data(zipcode)
 
 ## Read in cost by location data
 costs_data <- read.csv("data/uni_costs_by_location.csv")
-costs_data$ZIP = as.character(costs_data$ZIP)
+costs_data$ZIP = clean.zipcodes(costs_data$ZIP)
 
 ## Read in earnings by college type data
 earnings_data <- read.csv("data/uni_earnings_by_college_type.csv")
@@ -27,15 +26,10 @@ earnings_data <- read.csv("data/uni_earnings_by_college_type.csv")
 server <- function(input, output) {
   ############### Cost By Location ###############
   
-  ## Get cost by location data
+  ## Filter cost by location data by inputs
   get_data <- reactive({
     if (is.element(input$state, costs_data$STATE)) {
       costs_data <- filter(costs_data, STATE == input$state)
-      zipcode <- filter(zipcode, state == input$state)
-    }
-    if (is.element(input$zip, costs_data$ZIP)) {
-      costs_data <- filter(costs_data, ZIP == input$zip)
-      zipcode <- filter(zipcode, zip == input$zip)
     }
     
     costs_data <- costs_data %>% 
@@ -51,7 +45,7 @@ server <- function(input, output) {
   })
   
   ## Render cost by location plot
-  output$plot <- renderPlot({
+  output$plot <- renderPlotly({
     usa_map <- map_data("state")
     costs_data <- get_data()
     costs_data <- left_join(costs_data, zipcode, by = c("ZIP" = "zip"))
@@ -59,25 +53,39 @@ server <- function(input, output) {
     costs_data$state <- NULL
       
     if (nrow(costs_data) > 0) {
-      ggplot(data = usa_map) +
+      cost_plot <- ggplot(data = usa_map) +
         geom_polygon(mapping = aes(
           x = long,
           y = lat,
-          group = group),
-          color = "white") +
-        labs(x = "", y = "") +
+          group = group
+        ),
+        color = "white") +
         coord_quickmap() +
         geom_point(data = costs_data, mapping = aes(
           x = longitude,
           y = latitude,
-          colour = "red")) +
+          color = "red")) +
+        scale_fill_gradient("blue") +
         ggtitle("College Costs in the United States") +
-        guides(colour = FALSE)
+        guides(color = FALSE) +
+        labs(x = "Longitude", y = "Latitude")
+        
+      ggplotly(cost_plot) %>% 
+        config(displayModeBar = FALSE) %>% 
+        add_markers(
+          text = ~paste(paste("School:", costs_data$NAME), 
+                        paste("In-State Tuition:", costs_data$INSTATE_TUITION), 
+                        paste("Out-Of-State Tuition:", costs_data$OUTOFSTATE_TUITION), 
+                        sep = "<br />"),
+          size = I(8), 
+          hoverinfo = "text"
+        )
+      
     } else {
-      ggplot(data = usa_map) +
+      ggplot(data = costs_data) +
         geom_polygon(mapping = aes(
-          x = long,
-          y = lat,
+          x = longitude,
+          y = longitude,
           group = group),
           color = "white") +
         labs(x = "", y = "") +
@@ -112,7 +120,7 @@ server <- function(input, output) {
              "with a median in-state tuition of ",
              median(costs_data$INSTATE_TUITION),
              " and a median out-of state tuition of ",
-             median(costs_data$OUTOFSTATE_TUITION), ".")
+             median(costs_data$OUTOFSTATE_TUITION), ".", " Type: ", typeof(costs_data$ZIP))
     } else {
       paste0("No college/university found matching given input.")
     }

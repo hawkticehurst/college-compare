@@ -3,6 +3,7 @@
 ## College Data Web App UI
 
 library(shiny)
+library(plotly)
 
 shinyUI(fluidPage(
   tags$head(
@@ -61,29 +62,30 @@ shinyUI(fluidPage(
                       ),
                       
                       ## Research Question 1 Visualization
-                      tags$div(id = "viz-container1",
-                               class = "viz-container",
-                               `data-aos` = "fade-left",
-                               `data-aos-duration` = "800",
-                               sidebarLayout(
-                                 sidebarPanel(
-                                   `data-aos` = "fade-left",
-                                   `data-aos-duration` = "1000",
-                                   selectInput("stateStatus",
-                                               "State Status",
-                                               c("In State", "Out of State")),
-                                   textInput("zipCodeInput",
-                                             "Zip Code")
-                                 ),
-                                 
-                                 mainPanel(
-                                   `data-aos` = "fade-left",
-                                   `data-aos-duration` = "1500",
-                                   plotOutput("distPlot1")
-                                 )
-                               )         
-                      ),
+                      #tags$div(id = "viz-container1",
+                      #         class = "viz-container",
+                      #         `data-aos` = "fade-left",
+                      #         `data-aos-duration` = "800",
+                      #         sidebarLayout(
+                      #           sidebarPanel(
+                      #             `data-aos` = "fade-left",
+                      #             `data-aos-duration` = "1000",
+                      #             selectInput("stateStatus",
+                      #                         "State Status",
+                      #                         c("In State", "Out of State")),
+                      #             textInput("zipCodeInput",
+                      #                       "Zip Code")
+                      #           ),
+                      #           
+                      #           mainPanel(
+                      #             `data-aos` = "fade-left",
+                      #             `data-aos-duration` = "1500",
+                      #             plotOutput("distPlot1")
+                      #           )
+                      #         )         
+                      #),
                       
+                      ## Research Question 1 Visualization Version 2
                       tags$div(id = "viz-container1",
                                class = "viz-container",
                                `data-aos` = "fade-left",
@@ -93,7 +95,7 @@ shinyUI(fluidPage(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1000",
                                    textInput("state", "Search by State Abbreviation"),
-                                   textInput("zip", "Search by Zipcode"),
+                                   
                                    sliderInput("in_state", "Select In-State Tuition Range",
                                                min = 0, max = 46000, value = c(0, 50000),
                                                step = 500),
@@ -105,7 +107,7 @@ shinyUI(fluidPage(
                                  mainPanel(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1500",
-                                   plotOutput("plot"),
+                                   plotlyOutput("plot"),
                                    textOutput("message")
                                  )
                                ) 

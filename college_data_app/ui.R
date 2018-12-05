@@ -4,6 +4,9 @@
 
 library(shiny)
 
+debt_data <- read.csv("data/uni_repayment_by_income.csv")
+
+
 shinyUI(fluidPage(
   tags$head(
     tags$title("College Compare"),
@@ -176,8 +179,8 @@ shinyUI(fluidPage(
                                  sidebarPanel(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1000",
-                                   textInput("collegeInput",
-                                             "Select College/University"),
+                                   selectInput("collegeInput",
+                                             "Select College/University",debt_data$NAME),
                                    selectInput("repaymentYears",
                                                "Repayment Years",
                                                c("1 year"="1", "3 years"="3", "5 years"="5", "7 years"="7"))
@@ -204,7 +207,7 @@ shinyUI(fluidPage(
                                  "Finally, examining what level of debt can be expected at certain
                                  colleges can be a helpful contributing factor in your college 
                                  decision. The fourth tool ask which schools have the greatest 
-                                 cumulative median debt disaggregated by student subgroups?")
+                                 cumulative median debt disaggregated by family income?")
                       ),
                       
                       ## Research Question 4 Visualization

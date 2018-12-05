@@ -14,6 +14,7 @@ shinyUI(fluidPage(
     tags$title("College Compare"),
     tags$link(rel="stylesheet", type = "text/css", href="index.css"),
     tags$link(rel="stylesheet", href="https://unpkg.com/aos@2.3.1/dist/aos.css"),
+    tags$link(rel="icon", href="favicon.ico", type="image/x-icon"),
     tags$meta(charset="utf-8"),
     tags$meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
   ),
@@ -50,19 +51,19 @@ shinyUI(fluidPage(
                                  `data-aos` = "fade-right",
                                  `data-aos-duration` = "900",
                                  "It's no secret that college is expensive. It's more important 
-                                 than ever to perform due diligence when exploring your 
-                                 collegiate options. Using ",
+                                 than ever to perform due diligence when exploring your collegiate 
+                                 options. Using ",
                                  tags$a(href = "https://collegescorecard.ed.gov/data/", "College Scorecard Data"),
                                  " collected by the U.S. Department of Education we developed a 
-                                 resource for helping prospective students in some of this 
-                                 process."),
+                                 resource for helping prospective students and their families in 
+                                 some of this process."),
                                p(class = "summary-text",
                                  `data-aos` = "fade-right",
                                  `data-aos-duration` = "900",
                                  "The first tool, below, tackles one of the biggest questions: 
-                                 What are the costs of college? Answers to this question can be
-                                 filtered by zip code and whether you're an in-state vs. 
-                                 out-of-state student.")
+                                 What are the costs of college? Results to this question can be
+                                 filtered by state, in-state tuition level, and out-of-state
+                                 tuition level.")
                       ),
                       
                       ## Research Question 1 Visualization Version 2
@@ -76,8 +77,6 @@ shinyUI(fluidPage(
                                    `data-aos-duration` = "1000",
                                    selectInput("state",
                                                "Search by State", costs_data$STATE),
-                                   
-                                   
                                    sliderInput("in_state", "Select In-State Tuition Range",
                                                min = 0, max = 46000, value = c(0, 50000),
                                                step = 500),
@@ -108,8 +107,9 @@ shinyUI(fluidPage(
                                  "Another incredibly important consideration is the return of 
                                  investment from your college experience. The second tool asks 
                                  which colleges have the highest post-college average earnings 
-                                 based on Public, Private Nonprofit, and Private For-Profit 
-                                 colleges?")     
+                                 based on how many years it's been since graduation and whether
+                                 it was a Public, Private Nonprofit, and Private For-Profit 
+                                 university?")     
                       ),
                       
                       ## Research Question 2 Visualization
@@ -123,10 +123,13 @@ shinyUI(fluidPage(
                                    `data-aos-duration` = "1000",
                                    selectInput("typeOfCollege",
                                                "Type of College",
-                                               c("Public"=1, "Private Nonprofit"=2, "Private For-Profit"=3)),
+                                               c("Public" = 1, 
+                                                 "Private Nonprofit" = 2, 
+                                                 "Private For-Profit" = 3)),
                                    radioButtons("earnings_data_type", label = h3("Select years of data to view"),
-                                                choices = list("10 Years"="MEAN_EARNINGS_10_YEARS", "8 years"="MEAN_EARNINGS_8_YEARS", 
-                                                               "6 years"="MEAN_EARNINGS_6_YEARS"),
+                                                choices = list("10 Years" = "MEAN_EARNINGS_10_YEARS", 
+                                                               "8 years" = "MEAN_EARNINGS_8_YEARS", 
+                                                               "6 years" = "MEAN_EARNINGS_6_YEARS"),
                                                 selected = "MEAN_EARNINGS_10_YEARS")
                                  ),
                                  
@@ -150,7 +153,7 @@ shinyUI(fluidPage(
                                  `data-aos-duration` = "1000",
                                  "With college being so expensive a third consideration is how 
                                  long it will take to repay debt accumulated during your time at
-                                 college. The third tool ask which colleges have the best 
+                                 school. The third tool ask which colleges have the best 
                                  repayment rate (for 1, 3, 5, and 7 years) based on family 
                                  income?")
                       ),
@@ -165,7 +168,7 @@ shinyUI(fluidPage(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1000",
                                    selectInput("collegeInput",
-                                             "Select College/University",debt_data$NAME),
+                                               "Select College/University", debt_data$NAME),
                                    selectInput("repaymentYears",
                                                "Repayment Years",
                                                c("1 year"="1", "3 years"="3", "5 years"="5", "7 years"="7"))
@@ -192,7 +195,7 @@ shinyUI(fluidPage(
                                  "Finally, examining what level of debt can be expected at certain
                                  colleges can be a helpful contributing factor in your college 
                                  decision. The fourth tool ask which schools have the greatest 
-                                 cumulative median debt disaggregated by student income?")
+                                 cumulative median debt disaggregated by family income?")
                       ),
                       
                       ## Research Question 4 Visualization
@@ -206,12 +209,13 @@ shinyUI(fluidPage(
                                    `data-aos-duration` = "1000",
                                    radioButtons("studentSubgroup",
                                                 "Student Income Group",
-                                                c("Low Income ($0-$30,000)"="LOW_INCOME_MEDIAN_DEBT", "Middle Income($30,001-$75,000)"="MED_INCOME_MEDIAN_DEBT",
-                                                  "High Income($75,001+)"="HI_INCOME_MEDIAN_DEBT")),
+                                                c("Low Income ($0 - $30k)" = "LOW_INCOME_MEDIAN_DEBT", 
+                                                  "Middle Income ($30k - $75k)" = "MED_INCOME_MEDIAN_DEBT",
+                                                  "High Income ($75k+)" = "HI_INCOME_MEDIAN_DEBT")),
                                    radioButtons("debtRange",
                                                 "High/Low Debt?",
-                                                c("Colleges with Highest Debt"=0, 
-                                                  "Colleges withLowest Debt"=1))
+                                                c("Colleges with Highest Debt" = 0, 
+                                                  "Colleges with Lowest Debt" = 1))
                                  ),
                                  
                                  mainPanel(
@@ -236,20 +240,30 @@ shinyUI(fluidPage(
                         class = "team-card-container",
                         tags$div(
                           class = "team-card",
+                          `data-aos` = "fade-left",
+                          `data-aos-duration` = "900",
                           tags$img(src = "hawk.jpg", alt = "Headshot of Hawk Ticehurst"),
                           tags$div(
                             class = "team-card-info",
                             tags$h4("Hawk Ticehurst"),
-                            p("Major: Pre-Informatics")
+                            p("Major: Informatics Undeclared")
                           )
                         ),
                         tags$div(
                           class = "team-card",
-                          tags$img(src = "", alt = "Headshot of Zach Wu"),
-                          tags$h4("Zach Wu")
+                          `data-aos` = "fade-right",
+                          `data-aos-duration` = "900",
+                          tags$img(src = "zach.jpg", alt = "Headshot of Zach Wu"),
+                          tags$div(
+                            class = "team-card-info",
+                            tags$h4("Zach Wu"),
+                            p("Major: Computer Science Undeclared")
+                          )
                         ),
                         tags$div(
                           class = "team-card",
+                          `data-aos` = "fade-left",
+                          `data-aos-duration` = "900",
                           tags$img(src = "ishan_headshot.jpg", alt = "Headshot of Ishan Mitra"),
                           tags$div(
                             class = "team-card-info",
@@ -259,10 +273,14 @@ shinyUI(fluidPage(
                         ),
                         tags$div(
                           class = "team-card",
-                          tags$img(src = "alex.jpeg", alt = "Headshot of Alex Davis"),
-                          class = "team-card-info",
-                          tags$h4("Alex Davis"),
-                          p("Major: Germanics")
+                          `data-aos` = "fade-right",
+                          `data-aos-duration` = "900",
+                          tags$img(src = "alex.jpg", alt = "Headshot of Alex Davis"),
+                          tags$div(
+                            class = "team-card-info",
+                            tags$h4("Alex Davis"),
+                            p("Major: Germanics")
+                          )
                         )
                       )
              )

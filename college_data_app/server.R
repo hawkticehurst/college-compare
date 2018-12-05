@@ -76,7 +76,6 @@ server <- function(input, output) {
       )
     
     ggplotly(cost_plot) %>% config(displayModeBar = FALSE)
-    
   })
   
   # Calculate cost by location summary message
@@ -106,13 +105,11 @@ server <- function(input, output) {
   
   ## Get the earnings data based on the type of college selected (and possibly year data?)
   get_earnings <- reactive({
-    
     df <- earnings_data %>%
       filter(COLLEGE_TYPE == input$typeOfCollege) %>%
       arrange_(paste0("desc(",input$earnings_data_type,")"))
     
     return(df)
-    
   })
   
   
@@ -122,44 +119,43 @@ server <- function(input, output) {
     earnings_df <- earnings_df[1:15,]
     
     p <- ggplot(data=earnings_df, aes_string(x="NAME", y=input$earnings_data_type)) +
-      geom_bar(stat="identity") + ggtitle("College Earnings Data By Years After College & College Type") +
-      ylab("Mean Earnings") + xlab("Colleges") + guides(fill=FALSE) + theme(axis.text.x=element_blank())
+      geom_bar(stat="identity") + 
+      ggtitle("College Earnings By Years After Graduation & College Type") +
+      ylab("Average Earnings") + 
+      xlab("Colleges") + 
+      guides(fill=FALSE) + 
+      theme(axis.text.x=element_blank()) 
     
     ggplotly(p) %>% config(displayModeBar = FALSE)
   })
   
   ############### Repayment Rate By Family Income ###############
+  
   output$plot3 <- renderPlot({
-    
     get_university <- debt_data %>%
       filter(NAME == input$collegeInput) %>%
       select(contains(input$repaymentYears))
       df <- data.frame(x = colnames(get_university), y = as.numeric(get_university[1, ]))
 
-      ggplot(df,aes(x=x, y=y)) +
-      geom_bar(stat="identity") +
-        geom_text(aes(label=round(y,digits = 2), vjust=-0.3, size=3.5)) +
-        geom_bar(stat="identity", color="steelblue", fill="steelblue") +
+      ggplot(df,aes(x = x, y = y)) +
+      geom_bar(stat = "identity") +
+        geom_text(aes(label = round(y,digits = 2), vjust = -0.3, size = 3.5)) +
+        geom_bar(stat = "identity", color = "steelblue", fill = "steelblue") +
         xlab("Repayment by Income (0 - 30K, 30 - 75k, 75k+)") +
-        ylab("Repayment Rate (%)")+
+        ylab("Repayment Rate (%)") +
       geom_bar(stat="identity", color="steelblue", fill="steelblue") +
-      ggtitle(input$collegeInput)+
+      ggtitle(input$collegeInput) +
       theme_minimal()
   })
-  
-  
   
   ############### Debt By Student Subgroup ###############
   
   order_college_debt <- reactive({
-    
     student_debt_data %>%
       arrange_(paste0("desc(",input$studentSubgroup,")"))
-    
   })
   
   output$distPlot4 <- renderPlotly({
-    
     debt_df <- order_college_debt()
     debt_df <- na.omit(debt_df)
     if(input$debtRange == 0) {
@@ -169,11 +165,14 @@ server <- function(input, output) {
     }
     
     p <- ggplot(data=debt_df, aes_string(x="NAME", y=input$studentSubgroup)) +
-      geom_bar(stat="identity") + ggtitle("College Debt by Income Level") +
-      ylab("Debt (in US Dollars)") + xlab("Colleges") + guides(fill=FALSE) + theme(axis.text.x=element_blank())
+      geom_bar(stat="identity") + 
+      ggtitle("College Debt by Income Level") +
+      ylab("Debt (in US Dollars)") + 
+      xlab("Colleges") + 
+      guides(fill=FALSE) + 
+      theme(axis.text.x=element_blank())
     
     ggplotly(p) %>% config(displayModeBar = FALSE)
-    
   })
   
 }

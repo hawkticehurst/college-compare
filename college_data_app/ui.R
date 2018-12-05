@@ -3,6 +3,7 @@
 ## College Data Web App UI
 
 library(shiny)
+library(plotly)
 
 shinyUI(fluidPage(
   tags$head(
@@ -139,13 +140,17 @@ shinyUI(fluidPage(
                                    `data-aos-duration` = "1000",
                                    selectInput("typeOfCollege",
                                                "Type of College",
-                                               c("Public", "Private Nonprofit", "Private For-Profit"))
+                                               c("Public"=1, "Private Nonprofit"=2, "Private For-Profit"=3)),
+                                   radioButtons("earnings_data_type", label = h3("Select years of data to view"),
+                                                choices = list("10 Years"="MEAN_EARNINGS_10_YEARS", "8 years"="MEAN_EARNINGS_8_YEARS", 
+                                                               "6 years"="MEAN_EARNINGS_6_YEARS"),
+                                                selected = "MEAN_EARNINGS_10_YEARS")
                                  ),
                                  
                                  mainPanel(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1500",
-                                   plotOutput("distPlot2")
+                                   plotlyOutput("distPlot2")
                                  )
                                )        
                       ),

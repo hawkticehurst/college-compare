@@ -222,15 +222,20 @@ shinyUI(fluidPage(
                                  sidebarPanel(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1000",
-                                   selectInput("studentSubgroup",
+                                   radioButtons("studentSubgroup",
                                                "Student Subgroup",
-                                               c("White", "Black", "Asian", "Hispanic", "Other?"))
+                                               c("Low Income"="LOW_INCOME_MEDIAN_DEBT", "Middle Income"="MED_INCOME_MEDIAN_DEBT",
+                                                 "High Income"="HI_INCOME_MEDIAN_DEBT")),
+                                   radioButtons("debtRange",
+                                                "High/Low Debt?",
+                                                c("Colleges with Highest Debt"=0, 
+                                                  "Colleges withLowest Debt"=1))
                                  ),
                                  
                                  mainPanel(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1500",
-                                   plotOutput("distPlot4")
+                                   plotlyOutput("distPlot4")
                                  )
                                )       
                       )

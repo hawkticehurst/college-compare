@@ -18,10 +18,10 @@ costs_data$ZIP = clean.zipcodes(costs_data$ZIP)
 earnings_data <- read.csv("data/uni_earnings_by_college_type.csv")
 
 ## Read in repayment rate by family income data
-# TODO: repayment_data <- read.csv("data/...")
+debt_data <- read.csv("data/uni_repayment_by_income.csv")
 
 ## Read in debt by student subgroup data
-debt_data <- read.csv("data/uni_repayment_by_income.csv")
+student_debt_data <- read.csv("data/uni_debt_by_income.csv")
 
 server <- function(input, output) {
   ############### Cost By Location ###############
@@ -177,5 +177,32 @@ server <- function(input, output) {
   
   
   ############### Debt By Student Subgroup ###############
+  
+  order_college_debt <- reactive({
+    
+    student_debt_data %>%
+      arrange_(paste0("desc(",input$studentSubgroup,")"))
+    
+  })
+  
+  output$distPlot4 <- renderPlotly({
+    
+    debt_df <- order_college_debt()
+    debt_df <- na.omit(debt_df)
+    View(debt_df)
+    if(input$debtRange == 0) {
+      debt_df <- debt_df[1:15,]
+    } else {
+      debt_df <- tail(debt_df, n=15)
+    }
+    
+    p <- ggplot(data=debt_df, aes_string(x="NAME", y=input$studentSubgroup)) +
+      geom_bar(stat="identity") + ggtitle("College Debt by Income Level") +
+      ylab("Debt (in US Dollars)") + xlab("Colleges") + guides(fill=FALSE) + theme(axis.text.x=element_blank())
+    
+    ggplotly(p) %>% config(displayModeBar = FALSE)
+    
+  })
+  
   
 }

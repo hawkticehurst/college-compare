@@ -103,10 +103,29 @@ server <- function(input, output) {
   
   ############### Earnings By College Type ###############
   
+  ## Get the earnings data based on the type of college selected (and possibly year data?)
+  get_earnings <- reactive({
+    df <- earnings_data %>%
+      filter(COLLEGE_TYPE == input$typeOfCollege) %>%
+      arrange_(paste0("desc(",input$earnings_data_type,")"))
+    
+    return(df)
+  })
   
+  ## Output a plotly bar graph of the top 15 colleges with the highest earnings
+  output$distPlot2 <- renderPlotly({
+    earnings_df <- get_earnings()
+    earnings_df <- earnings_df[1:15,]
+    
+    p <- ggplot(data=earnings_df, aes_string(x="NAME", y=input$earnings_data_type)) +
+      geom_bar(stat="identity") + ggtitle("College Earnings Data By Years After College & College Type") +
+      ylab("Mean Earnings") + xlab("Colleges") + guides(fill=FALSE) + theme(axis.text.x=element_blank())
+    
+    ggplotly(p) %>% config(displayModeBar = FALSE)
+  })
+
   ############### Repayment Rate By Family Income ###############
   output$plot3 <- renderPlot({
-    
     get_university <- debt_data %>%
       filter(NAME == input$collegeInput) %>%
       select(contains(input$repaymentYears))
@@ -119,8 +138,6 @@ server <- function(input, output) {
       ggtitle(input$collegeInput)+
       theme_minimal()
   })
-  
-  
   
   ############### Debt By Student Subgroup ###############
   

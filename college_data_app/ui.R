@@ -6,6 +6,9 @@ library(shiny)
 library(plotly)
 costs_data <- read.csv("data/uni_costs_by_location.csv")
 
+debt_data <- read.csv("data/uni_repayment_by_income.csv")
+
+
 shinyUI(fluidPage(
   tags$head(
     tags$title("College Compare"),
@@ -61,30 +64,6 @@ shinyUI(fluidPage(
                                  filtered by zip code and whether you're an in-state vs. 
                                  out-of-state student.")
                       ),
-                      
-                      ## Research Question 1 Visualization
-                      #tags$div(id = "viz-container1",
-                      #         class = "viz-container",
-                      #         `data-aos` = "fade-left",
-                      #         `data-aos-duration` = "800",
-                      #         sidebarLayout(
-                      #           sidebarPanel(
-                      #             `data-aos` = "fade-left",
-                      #             `data-aos-duration` = "1000",
-                      #             selectInput("stateStatus",
-                      #                         "State Status",
-                      #                         c("In State", "Out of State")),
-                      #             textInput("zipCodeInput",
-                      #                       "Zip Code")
-                      #           ),
-                      #           
-                      #           mainPanel(
-                      #             `data-aos` = "fade-left",
-                      #             `data-aos-duration` = "1500",
-                      #             plotOutput("distPlot1")
-                      #           )
-                      #         )         
-                      #),
                       
                       ## Research Question 1 Visualization Version 2
                       tags$div(id = "viz-container1",
@@ -144,13 +123,17 @@ shinyUI(fluidPage(
                                    `data-aos-duration` = "1000",
                                    selectInput("typeOfCollege",
                                                "Type of College",
-                                               c("Public", "Private Nonprofit", "Private For-Profit"))
+                                               c("Public"=1, "Private Nonprofit"=2, "Private For-Profit"=3)),
+                                   radioButtons("earnings_data_type", label = h3("Select years of data to view"),
+                                                choices = list("10 Years"="MEAN_EARNINGS_10_YEARS", "8 years"="MEAN_EARNINGS_8_YEARS", 
+                                                               "6 years"="MEAN_EARNINGS_6_YEARS"),
+                                                selected = "MEAN_EARNINGS_10_YEARS")
                                  ),
                                  
                                  mainPanel(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1500",
-                                   plotOutput("distPlot2")
+                                   plotlyOutput("distPlot2")
                                  )
                                )        
                       ),
@@ -181,8 +164,8 @@ shinyUI(fluidPage(
                                  sidebarPanel(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1000",
-                                   textInput("collegeInput",
-                                             "Select College/University"),
+                                   selectInput("collegeInput",
+                                             "Select College/University",debt_data$NAME),
                                    selectInput("repaymentYears",
                                                "Repayment Years",
                                                c("1 year"="1", "3 years"="3", "5 years"="5", "7 years"="7"))

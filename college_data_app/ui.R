@@ -62,29 +62,30 @@ shinyUI(fluidPage(
                       ),
                       
                       ## Research Question 1 Visualization
-                      tags$div(id = "viz-container1",
-                               class = "viz-container",
-                               `data-aos` = "fade-left",
-                               `data-aos-duration` = "800",
-                               sidebarLayout(
-                                 sidebarPanel(
-                                   `data-aos` = "fade-left",
-                                   `data-aos-duration` = "1000",
-                                   selectInput("stateStatus",
-                                               "State Status",
-                                               c("In State", "Out of State")),
-                                   textInput("zipCodeInput",
-                                             "Zip Code")
-                                 ),
-                                 
-                                 mainPanel(
-                                   `data-aos` = "fade-left",
-                                   `data-aos-duration` = "1500",
-                                   plotOutput("distPlot1")
-                                 )
-                               )         
-                      ),
+                      #tags$div(id = "viz-container1",
+                      #         class = "viz-container",
+                      #         `data-aos` = "fade-left",
+                      #         `data-aos-duration` = "800",
+                      #         sidebarLayout(
+                      #           sidebarPanel(
+                      #             `data-aos` = "fade-left",
+                      #             `data-aos-duration` = "1000",
+                      #             selectInput("stateStatus",
+                      #                         "State Status",
+                      #                         c("In State", "Out of State")),
+                      #             textInput("zipCodeInput",
+                      #                       "Zip Code")
+                      #           ),
+                      #           
+                      #           mainPanel(
+                      #             `data-aos` = "fade-left",
+                      #             `data-aos-duration` = "1500",
+                      #             plotOutput("distPlot1")
+                      #           )
+                      #         )         
+                      #),
                       
+                      ## Research Question 1 Visualization Version 2
                       tags$div(id = "viz-container1",
                                class = "viz-container",
                                `data-aos` = "fade-left",
@@ -94,7 +95,7 @@ shinyUI(fluidPage(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1000",
                                    textInput("state", "Search by State Abbreviation"),
-                                   textInput("zip", "Search by Zipcode"),
+                                   
                                    sliderInput("in_state", "Select In-State Tuition Range",
                                                min = 0, max = 46000, value = c(0, 50000),
                                                step = 500),
@@ -106,7 +107,7 @@ shinyUI(fluidPage(
                                  mainPanel(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1500",
-                                   plotOutput("plot"),
+                                   plotlyOutput("plot"),
                                    textOutput("message")
                                  )
                                ) 
@@ -181,18 +182,17 @@ shinyUI(fluidPage(
                                  sidebarPanel(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1000",
+                                   textInput("collegeInput",
+                                             "Select College/University"),
                                    selectInput("repaymentYears",
                                                "Repayment Years",
-                                               c("1 year", "3 years", "5 years", "7 years")),
-                                   selectInput("familyIncome",
-                                               "Family Income",
-                                               c("$0k - $25k", "$25k - $50k", "$50k - $75k", "$75k - $110k", "$110k +"))
+                                               c("1 year"="1", "3 years"="3", "5 years"="5", "7 years"="7"))
                                  ),
                                  
                                  mainPanel(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1500",
-                                   plotOutput("distPlot3")
+                                   plotOutput("plot3")
                                  )
                                )      
                       ),
@@ -258,11 +258,6 @@ shinyUI(fluidPage(
                         ),
                         tags$div(
                           class = "team-card",
-                          tags$img(src = "", alt = "Headshot of Alex Davis"),
-                          tags$h4("Alex Davis")
-                        ),
-                        tags$div(
-                          class = "team-card",
                           tags$img(src = "", alt = "Headshot of Zach Wu"),
                           tags$h4("Zach Wu")
                         ),
@@ -270,6 +265,13 @@ shinyUI(fluidPage(
                           class = "team-card",
                           tags$img(src = "", alt = "Headshot of Ishan Mitra"),
                           tags$h4("Ishan Mitra")
+                        ),
+                        tags$div(
+                          class = "team-card",
+                          tags$img(src = "alex.jpeg", alt = "Headshot of Alex Davis"),
+                          class = "team-card-info",
+                          tags$h4("Alex Davis"),
+                          p("Major: Germanics")
                         )
                       )
              )

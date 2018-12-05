@@ -5,8 +5,8 @@ account: hawkticehurst
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 602739
-bundleId: 1740214
+bundleId: 1741779
 url: https://hawkticehurst.shinyapps.io/College_Compare/
-when: 1543953591.74249
+when: 1543995765.84131
 asMultiple: FALSE
 asStatic: FALSE

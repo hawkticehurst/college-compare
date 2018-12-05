@@ -20,7 +20,7 @@ earnings_data <- read.csv("data/uni_earnings_by_college_type.csv")
 ## Read in repayment rate by family income data
 debt_data <- read.csv("data/uni_repayment_by_income.csv")
 
-## Read in debt by student subgroup data
+## Read in debt by family income data
 student_debt_data <- read.csv("data/uni_debt_by_income.csv")
 
 server <- function(input, output) {
@@ -104,7 +104,7 @@ server <- function(input, output) {
   
   ############### Earnings By College Type ###############
   
-  #Get the earnings data based on the type of college selected (and possibly year data?)
+  ## Get the earnings data based on the type of college selected (and possibly year data?)
   get_earnings <- reactive({
     
     df <- earnings_data %>%
@@ -116,7 +116,7 @@ server <- function(input, output) {
   })
   
   
-  #Output a plotly bar graph of the top 15 colleges with the highest earnings
+  ## Output a plotly bar graph of the top 15 colleges with the highest earnings
   output$distPlot2 <- renderPlotly({
     earnings_df <- get_earnings()
     earnings_df <- earnings_df[1:15,]
@@ -141,7 +141,13 @@ server <- function(input, output) {
       geom_text(aes(label=x), vjust=-0.3, size=3.5)+
       geom_bar(stat="identity", color="steelblue", fill="steelblue") +
       ggtitle(input$collegeInput)+
-      theme_minimal()
+      theme_minimal() +
+      
+      ## FOR ALEX: NEW CHANGES ADDED
+      geom_text(aes(label=round(y,digits = 2), vjust=-0.3, size=3.5)) +
+        geom_bar(stat="identity", color="steelblue", fill="steelblue") +
+        xlab("Repayment by Income (0 - 30K, 30 - 75k, 75k+)") +
+        ylab("Repayment Rate (%)")
   })
   
   

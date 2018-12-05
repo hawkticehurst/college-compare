@@ -263,9 +263,11 @@ shinyUI(fluidPage(
                         tags$div(
                           class = "team-card",
                           tags$img(src = "alex.jpeg", alt = "Headshot of Alex Davis"),
+                          tags$div(
                           class = "team-card-info",
                           tags$h4("Alex Davis"),
                           p("Major: Germanics")
+                          )
                         )
                       )
              )

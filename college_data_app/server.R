@@ -33,13 +33,13 @@ server <- function(input, output) {
     }
     
     costs_data <- costs_data %>% 
-      filter(STATE != "HI" & STATE != "AK" & STATE != "AS" & STATE != "MH"
-             & STATE != "FM" & STATE != "MP" & STATE != "GU"
-             & STATE != "PW" & STATE != "PR" & STATE != "VI") %>%
+      filter(STATE != "AS" & STATE != "MH" & STATE != "FM" 
+             & STATE != "MP" & STATE != "GU" & STATE != "PW" 
+             & STATE != "PR" & STATE != "VI") %>%
       filter(INSTATE_TUITION <= max(input$in_state) &
-             INSTATE_TUITION >= min(input$in_state) &
-             OUTOFSTATE_TUITION <= max(input$out_of_state) &
-             OUTOFSTATE_TUITION >= min(input$out_of_state))
+               INSTATE_TUITION >= min(input$in_state) |
+               OUTOFSTATE_TUITION <= max(input$out_of_state) &
+               OUTOFSTATE_TUITION >= min(input$out_of_state))
     
     return(costs_data)
   })
@@ -51,79 +51,48 @@ server <- function(input, output) {
     costs_data <- left_join(costs_data, zipcode, by = c("ZIP" = "zip"))
     costs_data$city <- NULL
     costs_data$state <- NULL
-      
-    if (nrow(costs_data) > 0) {
-      cost_plot <- ggplot(data = usa_map) +
-        geom_polygon(mapping = aes(
-          x = long,
-          y = lat,
-          group = group
-        ),
-        color = "white") +
-        coord_quickmap() +
-        geom_point(data = costs_data, mapping = aes(
-          x = longitude,
-          y = latitude,
-          color = "red")) +
-        scale_fill_gradient("blue") +
-        ggtitle("College Costs in the United States") +
-        guides(color = FALSE) +
-        labs(x = "Longitude", y = "Latitude")
-        
-      ggplotly(cost_plot) %>% 
-        config(displayModeBar = FALSE) %>% 
-        add_markers(
-          text = ~paste(paste("School:", costs_data$NAME), 
-                        paste("In-State Tuition:", costs_data$INSTATE_TUITION), 
-                        paste("Out-Of-State Tuition:", costs_data$OUTOFSTATE_TUITION), 
-                        sep = "<br />"),
-          size = I(8), 
-          hoverinfo = "text"
-        )
-      
-    } else {
-      ggplot(data = costs_data) +
-        geom_polygon(mapping = aes(
-          x = longitude,
-          y = longitude,
-          group = group),
-          color = "white") +
-        labs(x = "", y = "") +
-        coord_quickmap()
-    }
+    
+    g <- list(
+      scope = 'usa',
+      projection = list(type = 'albers usa'),
+      showland = TRUE,
+      landcolor = toRGB("gray95"),
+      subunitcolor = toRGB("gray85"),
+      countrycolor = toRGB("gray85"),
+      countrywidth = 0.5,
+      subunitwidth = 0.5
+    )
+    
+    cost_plot <- plot_geo(costs_data, y = ~latitude, x = ~longitude) %>%
+      add_markers(
+        text = ~paste(paste("School:", costs_data$NAME), 
+                      paste0("In-State Tuition: $", costs_data$INSTATE_TUITION), 
+                      paste0("Out-Of-State Tuition: $", costs_data$OUTOFSTATE_TUITION), 
+                      sep = "<br />"),
+        hoverinfo = "text"
+      ) %>%
+      layout(
+        title = 'College Costs in the United States', geo = g
+      )
+    
+    ggplotly(cost_plot) %>% config(displayModeBar = FALSE)
+    
   })
   
   # Calculate cost by location summary message
   message <- reactive({
     costs_data <- get_data()
-    if (nrow(costs_data) > 0) {
-      zip_message <- ""
-      state_message <- ""
-      if (length(unique(costs_data$ZIP)) > 1) {
-        zip_message <- paste0("across ", length(unique(costs_data$ZIP)),
-                              " zipcodes, ")
-        if (length(unique(costs_data$STATE)) > 1) {
-          state_message <- paste0(length(unique(costs_data$STATE)),
-                                  " states, including ",
-                                  unique(costs_data$STATE)[1], " and ",
-                                  unique(costs_data$STATE)[2], ", ")
-        } else if (length(unique(costs_data$STATE)) == 1) {
-          state_message <- paste0(costs_data$STATE[1], ", ")
-        }
-      } else if (length(unique(costs_data$ZIP)) == 1) {
-        zip_message <- paste0("under zipcode ", costs_data$ZIP[1], ", ")
-        state_message <- paste0(costs_data$CITY[1], ", ",
-                                costs_data$STATE[1], ", ")
-      }
-      paste0("Summary: ", "Displayed data show ", nrow(costs_data),
-             " college(s)/universitie(s) in ", state_message, zip_message,
-             "with a median in-state tuition of ",
-             median(costs_data$INSTATE_TUITION),
-             " and a median out-of state tuition of ",
-             median(costs_data$OUTOFSTATE_TUITION), ".", " Type: ", typeof(costs_data$ZIP))
-    } else {
-      paste0("No college/university found matching given input.")
+    state_message <- ""
+    if (length(unique(costs_data$STATE)) > 1) {
+      state_message <- paste0(length(unique(costs_data$STATE)), " states,")
+    } else if (length(unique(costs_data$STATE)) == 1) {
+      state_message <- paste0(costs_data$STATE[1], ", ")
     }
+    paste0("Data shows ", nrow(costs_data),
+           " college(s)/universitie(s) in ", state_message,
+           " with a median in-state tuition of $", median(costs_data$INSTATE_TUITION),
+           " and a median out-of state tuition of $", median(costs_data$OUTOFSTATE_TUITION), 
+           ".")
   })
   
   ## Render cost by location summary message
@@ -131,6 +100,7 @@ server <- function(input, output) {
     output_message <- message()
     paste0(message())
   })
+  
   
   ############### Earnings By College Type ###############
   
@@ -204,3 +174,4 @@ server <- function(input, output) {
   })
   
 }
+

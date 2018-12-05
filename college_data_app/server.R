@@ -189,7 +189,6 @@ server <- function(input, output) {
     
     debt_df <- order_college_debt()
     debt_df <- na.omit(debt_df)
-    View(debt_df)
     if(input$debtRange == 0) {
       debt_df <- debt_df[1:15,]
     } else {
@@ -203,6 +202,5 @@ server <- function(input, output) {
     ggplotly(p) %>% config(displayModeBar = FALSE)
     
   })
-  
   
 }

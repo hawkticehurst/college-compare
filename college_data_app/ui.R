@@ -5,6 +5,9 @@
 library(shiny)
 library(plotly)
 
+debt_data <- read.csv("data/uni_repayment_by_income.csv")
+
+
 shinyUI(fluidPage(
   tags$head(
     tags$title("College Compare"),
@@ -60,30 +63,6 @@ shinyUI(fluidPage(
                                  filtered by zip code and whether you're an in-state vs. 
                                  out-of-state student.")
                       ),
-                      
-                      ## Research Question 1 Visualization
-                      #tags$div(id = "viz-container1",
-                      #         class = "viz-container",
-                      #         `data-aos` = "fade-left",
-                      #         `data-aos-duration` = "800",
-                      #         sidebarLayout(
-                      #           sidebarPanel(
-                      #             `data-aos` = "fade-left",
-                      #             `data-aos-duration` = "1000",
-                      #             selectInput("stateStatus",
-                      #                         "State Status",
-                      #                         c("In State", "Out of State")),
-                      #             textInput("zipCodeInput",
-                      #                       "Zip Code")
-                      #           ),
-                      #           
-                      #           mainPanel(
-                      #             `data-aos` = "fade-left",
-                      #             `data-aos-duration` = "1500",
-                      #             plotOutput("distPlot1")
-                      #           )
-                      #         )         
-                      #),
                       
                       ## Research Question 1 Visualization Version 2
                       tags$div(id = "viz-container1",
@@ -182,8 +161,8 @@ shinyUI(fluidPage(
                                  sidebarPanel(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1000",
-                                   textInput("collegeInput",
-                                             "Select College/University"),
+                                   selectInput("collegeInput",
+                                             "Select College/University",debt_data$NAME),
                                    selectInput("repaymentYears",
                                                "Repayment Years",
                                                c("1 year"="1", "3 years"="3", "5 years"="5", "7 years"="7"))
@@ -210,7 +189,7 @@ shinyUI(fluidPage(
                                  "Finally, examining what level of debt can be expected at certain
                                  colleges can be a helpful contributing factor in your college 
                                  decision. The fourth tool ask which schools have the greatest 
-                                 cumulative median debt disaggregated by student subgroups?")
+                                 cumulative median debt disaggregated by student income?")
                       ),
                       
                       ## Research Question 4 Visualization
@@ -223,9 +202,9 @@ shinyUI(fluidPage(
                                    `data-aos` = "fade-left",
                                    `data-aos-duration` = "1000",
                                    radioButtons("studentSubgroup",
-                                               "Student Subgroup",
-                                               c("Low Income"="LOW_INCOME_MEDIAN_DEBT", "Middle Income"="MED_INCOME_MEDIAN_DEBT",
-                                                 "High Income"="HI_INCOME_MEDIAN_DEBT")),
+                                                "Student Subgroup",
+                                                c("Low Income ($0-$30,000)"="LOW_INCOME_MEDIAN_DEBT", "Middle Income($30,001-$75,000)"="MED_INCOME_MEDIAN_DEBT",
+                                                  "High Income($75,001+)"="HI_INCOME_MEDIAN_DEBT")),
                                    radioButtons("debtRange",
                                                 "High/Low Debt?",
                                                 c("Colleges with Highest Debt"=0, 
@@ -268,8 +247,12 @@ shinyUI(fluidPage(
                         ),
                         tags$div(
                           class = "team-card",
-                          tags$img(src = "", alt = "Headshot of Ishan Mitra"),
-                          tags$h4("Ishan Mitra")
+                          tags$img(src = "ishan_headshot.jpg", alt = "Headshot of Ishan Mitra"),
+                          tags$div(
+                            class = "team-card-info",
+                            tags$h4("Ishan Mitra"),
+                            p("Major: Engineering Undeclared")
+                          )
                         ),
                         tags$div(
                           class = "team-card",

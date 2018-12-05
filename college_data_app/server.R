@@ -21,7 +21,7 @@ earnings_data <- read.csv("data/uni_earnings_by_college_type.csv")
 # TODO: repayment_data <- read.csv("data/...")
 
 ## Read in debt by student subgroup data
-# TODO: debt_data <- read.csv("data/...")
+debt_data <- read.csv("data/uni_repayment_by_income.csv")
 
 server <- function(input, output) {
   ############### Cost By Location ###############
@@ -136,6 +136,21 @@ server <- function(input, output) {
   
   
   ############### Repayment Rate By Family Income ###############
+  output$plot3 <- renderPlot({
+    
+    get_university <- debt_data %>%
+      filter(NAME == input$collegeInput) %>%
+      select(contains(input$repaymentYears))
+      df <- data.frame(x = colnames(get_university), y = as.numeric(get_university[1, ]))
+
+      ggplot(df,aes(x=x, y=y)) +
+      geom_bar(stat="identity") +
+      geom_text(aes(label=x), vjust=-0.3, size=3.5)+
+      geom_bar(stat="identity", color="steelblue", fill="steelblue") +
+      ggtitle(input$collegeInput)+
+      theme_minimal()
+  })
+  
   
   
   ############### Debt By Student Subgroup ###############

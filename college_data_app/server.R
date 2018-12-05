@@ -33,9 +33,9 @@ server <- function(input, output) {
     }
     
     costs_data <- costs_data %>% 
-      filter(STATE != "HI" & STATE != "AK" & STATE != "AS" & STATE != "MH"
-             & STATE != "FM" & STATE != "MP" & STATE != "GU"
-             & STATE != "PW" & STATE != "PR" & STATE != "VI") %>%
+      filter(STATE != "AS" & STATE != "MH" & STATE != "FM" 
+             & STATE != "MP" & STATE != "GU" & STATE != "PW" 
+             & STATE != "PR" & STATE != "VI") %>%
       filter(INSTATE_TUITION <= max(input$in_state) &
              INSTATE_TUITION >= min(input$in_state) &
              OUTOFSTATE_TUITION <= max(input$out_of_state) &
@@ -53,6 +53,32 @@ server <- function(input, output) {
     costs_data$state <- NULL
       
     if (nrow(costs_data) > 0) {
+      g <- list(
+        scope = 'usa',
+        projection = list(type = 'albers usa'),
+        showland = TRUE,
+        landcolor = toRGB("gray95"),
+        subunitcolor = toRGB("gray85"),
+        countrycolor = toRGB("gray85"),
+        countrywidth = 0.5,
+        subunitwidth = 0.5
+      )
+      
+      cost_plot <- plot_geo(costs_data, y = ~latitude, x = ~longitude) %>%
+        add_markers(
+          text = ~paste(paste("School:", costs_data$NAME), 
+                        paste0("In-State Tuition: $", costs_data$INSTATE_TUITION), 
+                        paste0("Out-Of-State Tuition: $", costs_data$OUTOFSTATE_TUITION), 
+                        sep = "<br />"),
+          hoverinfo = "text"
+        ) %>%
+        layout(
+          title = 'College Costs in the United States', geo = g
+        )
+        
+      ggplotly(cost_plot) %>% config(displayModeBar = FALSE)
+      
+    } else {
       cost_plot <- ggplot(data = usa_map) +
         geom_polygon(mapping = aes(
           x = long,
@@ -69,19 +95,8 @@ server <- function(input, output) {
         ggtitle("College Costs in the United States") +
         guides(color = FALSE) +
         labs(x = "Longitude", y = "Latitude")
-        
-      ggplotly(cost_plot) %>% 
-        config(displayModeBar = FALSE) %>% 
-        add_markers(
-          text = ~paste(paste("School:", costs_data$NAME), 
-                        paste("In-State Tuition:", costs_data$INSTATE_TUITION), 
-                        paste("Out-Of-State Tuition:", costs_data$OUTOFSTATE_TUITION), 
-                        sep = "<br />"),
-          size = I(8), 
-          hoverinfo = "text"
-        )
       
-    } else {
+      ######################
       ggplot(data = costs_data) +
         geom_polygon(mapping = aes(
           x = longitude,

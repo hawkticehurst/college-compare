@@ -61,30 +61,6 @@ shinyUI(fluidPage(
                                  out-of-state student.")
                       ),
                       
-                      ## Research Question 1 Visualization
-                      #tags$div(id = "viz-container1",
-                      #         class = "viz-container",
-                      #         `data-aos` = "fade-left",
-                      #         `data-aos-duration` = "800",
-                      #         sidebarLayout(
-                      #           sidebarPanel(
-                      #             `data-aos` = "fade-left",
-                      #             `data-aos-duration` = "1000",
-                      #             selectInput("stateStatus",
-                      #                         "State Status",
-                      #                         c("In State", "Out of State")),
-                      #             textInput("zipCodeInput",
-                      #                       "Zip Code")
-                      #           ),
-                      #           
-                      #           mainPanel(
-                      #             `data-aos` = "fade-left",
-                      #             `data-aos-duration` = "1500",
-                      #             plotOutput("distPlot1")
-                      #           )
-                      #         )         
-                      #),
-                      
                       ## Research Question 1 Visualization Version 2
                       tags$div(id = "viz-container1",
                                class = "viz-container",
@@ -280,4 +256,3 @@ shinyUI(fluidPage(
   tags$script(src = "https://unpkg.com/aos@next/dist/aos.js"),
   tags$script(HTML("AOS.init();"))
 ))
->>>>>>> f660ff45074c7dac67f8b5833e92ad5112e84636

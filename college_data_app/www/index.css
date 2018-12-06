@@ -311,18 +311,3 @@ body {
     border-radius: 5px 5px 0 0;
   }
 }
-
-/* Medium devices (tablets, 768px and down) */
-@media (max-width: 768px) { 
-  /* TODO: Add adjustments? */
-}
-
-/* Large devices (desktops, 992px and down) */
-@media (max-width: 992px) { 
-  /* TODO: Add adjustments? */
-}
-
-/* Extra large devices (large desktops, 1200px and down) */
-@media (max-width: 1200px) {
-  /* TODO: Add adjustments? */
-}

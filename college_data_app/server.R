@@ -35,12 +35,17 @@ server <- function(input, output) {
     costs_data <- costs_data %>% 
       filter(STATE != "AS" & STATE != "MH" & STATE != "FM" 
              & STATE != "MP" & STATE != "GU" & STATE != "PW" 
-             & STATE != "PR" & STATE != "VI") %>%
-      filter(INSTATE_TUITION <= max(input$in_state) &
-               INSTATE_TUITION >= min(input$in_state) |
-               OUTOFSTATE_TUITION <= max(input$out_of_state) &
-               OUTOFSTATE_TUITION >= min(input$out_of_state))
-    
+             & STATE != "PR" & STATE != "VI")
+    if(input$tuition_type == 0) {
+      costs_data <- costs_data %>%
+        filter(INSTATE_TUITION <= max(input$tuition_range) &
+               INSTATE_TUITION >= min(input$tuition_range))
+    } else {
+      costs_data <- costs_data %>%
+        filter(OUTOFSTATE_TUITION <= max(input$tuition_range) &
+                OUTOFSTATE_TUITION >= min(input$tuition_range))
+    }
+              
     return(costs_data)
   })
   
@@ -120,11 +125,11 @@ server <- function(input, output) {
     
     p <- ggplot(data=earnings_df, aes_string(x="NAME", y=input$earnings_data_type)) +
       geom_bar(stat="identity") + 
-      ggtitle("College Earnings By Years After Graduation & College Type") +
+      ggtitle("Top 15 College Earnings By Years After Graduation & College Type") +
       ylab("Average Earnings") + 
       xlab("Colleges") + 
       guides(fill=FALSE) + 
-      theme(axis.text.x=element_blank()) 
+      coord_flip()
     
     ggplotly(p) %>% config(displayModeBar = FALSE)
   })
@@ -170,7 +175,7 @@ server <- function(input, output) {
       ylab("Debt (in US Dollars)") + 
       xlab("Colleges") + 
       guides(fill=FALSE) + 
-      theme(axis.text.x=element_blank())
+      coord_flip()
     
     ggplotly(p) %>% config(displayModeBar = FALSE)
   })

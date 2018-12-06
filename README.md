@@ -8,3 +8,5 @@ In this Shiny App, we use a data set from [College Scorecard](https://collegesco
 2. What colleges have the highest post-college average earnings depending on Public, Private Nonprofit, and Private For-Profit colleges?
 3. What colleges have the best repayment rate (for 1, 3, 5, and 7 years) based on family income?
 4. Which schools have the greatest cumulative median debt disaggregated by income groups?
+
+Link to Shiny App: [College Compare](https://hawkticehurst.shinyapps.io/College_Compare/)

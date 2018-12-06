@@ -1,17 +1,8 @@
+/***** Import Fonts *****/
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,600i,700,700i,800,800i|Yantramanav:400,500');
 
-/***** Mobile Friendly Adjustments *****/
-@media (min-width: 576px) { ... }
 
-// Medium devices (tablets, 768px and up)
-@media (min-width: 768px) { ... }
-
-// Large devices (desktops, 992px and up)
-@media (min-width: 992px) { ... }
-
-// Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) { ... }
-
+/***** Global Styles *****/
 body {
   background-color: #F7F7F7;
   font-family: 'Open Sans', sans-serif;
@@ -57,8 +48,8 @@ body {
 
 #team-header-content {
   padding-left: 4em;
-  margin-top: 15em;
-  margin-bottom: 15em;
+  margin-top: 14em;
+  margin-bottom: 12em;
 }
 
 /***** Wave Animation *****/
@@ -110,7 +101,7 @@ body {
   position: absolute;
   height: 40%;
   left: 1px;
-  bottom: 0px;
+  bottom: 0;
   z-index: -1;
 }
 
@@ -166,7 +157,7 @@ body {
   padding: 2em 1em 2em 1em;
   margin-top: 2em;
   margin-bottom: 2em;
-  box-shadow: 0px 2px 12px #B6B9BA;
+  box-shadow: 0 2px 12px #B6B9BA;
 }
 
 #viz-container1 {
@@ -189,30 +180,23 @@ body {
 /***** Team Cards *****/
 .team-card-container {
   display: flex;
-  align-items: center;
-  flex-direction: column;
+  justify-content: space-around;
+  flex-flow: row wrap;
 }
 
 .team-card {
   display: flex;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 0 0 30px -30px #D7DBDD;
-  width: 35em;
+  box-shadow: 0 0 50px #D7DBDD;
+  width: 40em;
   margin-top: 2em;
   margin-bottom: 2em;
-  transform: scale(1.00);
-  transition: transform 0.35s;
-}
-
-.team-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0 50px #D7DBDD;
 }
 
 .team-card-info > h4 {
   font-family: 'Yantramanav', sans-serif;
-  font-size: 18pt;
+  font-size: 22pt;
   font-weight: 600;
   padding-top: 0.2em;
 }
@@ -224,9 +208,9 @@ body {
 .team-card > img {
   height: auto;
   width: auto;
-  max-width: 200px;
-  max-height: 200px;
-  border-radius: 5px 0px 0px 5px;
+  max-width: 250px;
+  max-height: 250px;
+  border-radius: 5px 0 0 5px;
 }
 
 
@@ -235,6 +219,7 @@ body {
 /* http://animista.net */
 
 .focus-in-contract {
+  -moz-animation: focus-in-contract 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	-webkit-animation: focus-in-contract 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	animation: focus-in-contract 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
@@ -268,6 +253,7 @@ body {
 }
 
 .text-focus-in {
+  -moz-animation: text-focus-in 0.7s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
 	-webkit-animation: text-focus-in 0.7s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
 	animation: text-focus-in 0.7s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
 }
@@ -296,4 +282,47 @@ body {
     filter: blur(0px);
     opacity: 1;
   }
+}
+
+
+/***** Mobile Friendly Adjustments *****/
+@media (max-width: 576px) {
+  .team-card-container {
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .team-card {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 50px #D7DBDD;
+    width: 20em;
+  }
+  
+  .team-card-info {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding-left: 1em;
+  }
+  
+  .team-card > img {
+    max-width: 280px;
+    max-height: 280px;
+    border-radius: 5px 5px 0 0;
+  }
+}
+
+/* Medium devices (tablets, 768px and down) */
+@media (max-width: 768px) { 
+  /* TODO: Add adjustments? */
+}
+
+/* Large devices (desktops, 992px and down) */
+@media (max-width: 992px) { 
+  /* TODO: Add adjustments? */
+}
+
+/* Extra large devices (large desktops, 1200px and down) */
+@media (max-width: 1200px) {
+  /* TODO: Add adjustments? */
 }

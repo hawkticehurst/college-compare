@@ -8,8 +8,9 @@ library(plotly)
 costs_data <- read.csv("data/uni_costs_by_location.csv")
 debt_data <- read.csv("data/uni_repayment_by_income.csv")
 
-
 shinyUI(fluidPage(
+  
+  ## Webpage meta information
   tags$head(
     tags$title("College Compare"),
     tags$link(rel="stylesheet", type = "text/css", href="index.css"),
@@ -18,7 +19,8 @@ shinyUI(fluidPage(
     tags$meta(charset="utf-8"),
     tags$meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
   ),
-
+  
+  ## Webpage content
   navbarPage(id = "navbar",
              collapsible = TRUE,
              header = TRUE,
@@ -27,6 +29,8 @@ shinyUI(fluidPage(
              
              ## Home Page Content
              tabPanel("Home",
+                      
+                      ## Home page title and animations
                       tags$header(
                         tags$div(id = "header-content",
                                  h1(id = "home-title",
@@ -66,7 +70,7 @@ shinyUI(fluidPage(
                                  tuition level.")
                       ),
                       
-                      ## Research Question 1 Visualization Version 2
+                      ## Research Question 1 Visualization
                       tags$div(id = "viz-container1",
                                class = "viz-container",
                                `data-aos` = "fade-left",
@@ -229,6 +233,8 @@ shinyUI(fluidPage(
              
              ## Team Page Content
              tabPanel("Team", 
+                      
+                      ## Team page title
                       tags$header(
                         tags$div(id = "team-header-content",
                                  h1(id = "team-title",
@@ -236,6 +242,8 @@ shinyUI(fluidPage(
                                     "The Team")
                         )
                       ),
+                      
+                      ## Team member cards
                       tags$div(
                         class = "team-card-container",
                         tags$div(

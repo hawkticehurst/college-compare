@@ -108,7 +108,7 @@ server <- function(input, output) {
   
   ############### Earnings By College Type ###############
   
-  ## Get the earnings data based on the type of college selected (and possibly year data?)
+  ## Get the earnings data based on the type of college selected
   get_earnings <- reactive({
     df <- earnings_data %>%
       filter(COLLEGE_TYPE == input$typeOfCollege) %>%
@@ -141,7 +141,7 @@ server <- function(input, output) {
       filter(NAME == input$collegeInput) %>%
       select(contains(input$repaymentYears))
       df <- data.frame(x = colnames(get_university), y = as.numeric(get_university[1, ]))
-
+      
       ggplot(df,aes(x = x, y = y)) +
       geom_bar(stat = "identity") +
         geom_text(aes(label = round(y,digits = 2), vjust = -0.3, size = 3.5)) +
@@ -179,5 +179,4 @@ server <- function(input, output) {
     
     ggplotly(p) %>% config(displayModeBar = FALSE)
   })
-  
 }

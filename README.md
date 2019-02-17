@@ -15,5 +15,4 @@ The target audience we focused on was high school upperclassmen and their famili
 3. What colleges have the best repayment rate (for 1, 3, 5, and 7 years) based on family income?
 4. Which schools have the greatest cumulative median debt disaggregated by income groups?
 
-
-This was a data analysis group project for INFO 201: Intellectual Foundations of Informatics at the University of Washington.
+This was a data analysis group project for INFO 201: Intellectual Foundations of Informatics at the University of Washington during the Autumn 2018 quarter.

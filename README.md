@@ -1,10 +1,8 @@
-# Info 201 Group Project
-
-### College Compare
+# College Compare
 
 Link to Shiny App: [College Compare](https://hawkticehurst.shinyapps.io/College_Compare/)
 
-Final group project for INFO 201: Intellectual Foundations of Informatics at the University of Washington (Autumn 2018).
+_Final group project for INFO 201: Intellectual Foundations of Informatics at the University of Washington (Autumn 2018)._
 
 College Compare is a web app for helping prospective college students make more informed decisions about their choice of college. We used [College Scorecard Data](https://collegescorecard.ed.gov/data/) collected by the U.S. Department of Education. As defined in the College Scorecard documentation,
 

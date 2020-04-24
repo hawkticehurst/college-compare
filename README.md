@@ -14,3 +14,7 @@ The target audience we focused on was high school upperclassmen and their famili
 2. What colleges have the highest post-college average earnings depending on Public, Private Nonprofit, and Private For-Profit colleges?
 3. What colleges have the best repayment rate (for 1, 3, 5, and 7 years) based on family income?
 4. Which schools have the greatest cumulative median debt disaggregated by income groups?
+
+## License
+
+[MIT](LICENSE)

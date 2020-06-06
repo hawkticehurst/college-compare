@@ -1,6 +1,18 @@
-# College Compare
+<h1 align="center">College Compare</h1>
+
+<h4 align="center">A web app for helping prospective college students make more informed decisions about their choice of college.</h4>
+
+<p align="center">
+  <a href="#application-demo">Application Demo</a>&nbsp;|&nbsp;<a href="#project-description">Project Description</a>&nbsp;|&nbsp;<a href="#license">License</a>
+</p>
+
+<div align="center"><img src="assets/college-compare.gif"/></div>
+
+# Application Demo
 
 Link to Shiny App: [College Compare](https://hawkticehurst.shinyapps.io/College_Compare/)
+
+# Project Description
 
 _Final group project for INFO 201: Intellectual Foundations of Informatics at the University of Washington (Autumn 2018)._
 

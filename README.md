@@ -8,11 +8,11 @@
 
 <div align="center"><img src="assets/college-compare.gif"/></div>
 
-# Application Demo
+## Application Demo
 
 Link to Shiny App: [College Compare](https://hawkticehurst.shinyapps.io/College_Compare/)
 
-# Project Description
+## Project Description
 
 _Final group project for INFO 201: Intellectual Foundations of Informatics at the University of Washington (Autumn 2018)._
 

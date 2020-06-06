@@ -9,7 +9,7 @@
   &nbsp;|&nbsp;<a href="#license">License</a>
 </p>
 
-<div align="center"><img src="assets/college-compare2.gif"/></div>
+<div align="center"><img src="assets/college-compare.gif"/></div>
 
 ## Application Demo
 
